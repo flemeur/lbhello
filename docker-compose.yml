@@ -4,13 +4,13 @@ services:
   web:
     build: .
     labels:
-      - "traefik.frontend.rule=Host:lbhello.localhost"
+      - "traefik.http.routers.web.rule=Host(`lbhello.localhost`)"
     networks:
       - frontend
 
   reverse-proxy:
     image: traefik
-    command: --api --docker
+    command: --api.insecure=true --providers.docker
     ports:
       - "80:80"
       - "8080:8080"
